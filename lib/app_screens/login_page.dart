@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:railway_app_final/app_screens/profile_page.dart';
 import 'package:railway_app_final/utilities/constants.dart';
 import 'package:railway_app_final/app_screens/sign_up_page.dart';
 import 'package:railway_app_final/app_screens/train_find_page.dart';
@@ -110,7 +111,7 @@ class _loginPageState extends State<LoginScreen> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => TrainFindPage()));
+                  builder: (context) => ProfileApp ()));
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
@@ -157,7 +158,7 @@ class _loginPageState extends State<LoginScreen> {
   Widget _buildSignupBtn() {
     return GestureDetector(
       onTap: () {
-        Navigator.pop(context);
+
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -211,7 +212,7 @@ class _loginPageState extends State<LoginScreen> {
                       Color(0xFF37474F),
                       Color(0xFF37474F),
                     ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
+                    //stops: [0.1, 0.4, 0.7, 0.9],
                   ),
                 ),
               ),

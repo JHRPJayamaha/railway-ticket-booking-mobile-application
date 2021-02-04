@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:railway_app_final/utilities/constants.dart';
 import 'package:railway_app_final/app_screens/login_page.dart';
 import 'dart:async';
@@ -14,57 +16,85 @@ class _TrainFindPageState extends State<TrainFindPage> {
   var _currencies1 = ['colombo', 'kurunegala'];
   var _currentItemSelected = 'colombo';
   var _currentItemSelected1 = 'colombo';
+  DateTime selectedDate;
+  String fromDate = "-----Select-----";
+
   Widget _buildFromTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'From',
-          style: kLabelStyle,
-        ),
-        SizedBox(height: 10.0),
-        DropdownButton<String>(
-          items: _currencies.map((String dropDownStringItem) {
-            return DropdownMenuItem<String>(
-              value: dropDownStringItem,
-              child: Text(dropDownStringItem),
-            );
-          }).toList(),
-          onChanged: (String newValueSelected) {
-            setState(() {
-              this._currentItemSelected = newValueSelected;
-            });
-          },
-          value: _currentItemSelected,
-        )
-      ],
+    return Container(
+      width: 260,
+
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(width: 10, height: 10.0),
+          Expanded(
+            child: Text(
+              'From',
+              style: kLabelStyle,
+            ),
+          ),
+          SizedBox(width: 40, height: 10.0),
+          Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),color: Colors.white),
+            width: 170,
+            child: Center(
+              child: DropdownButton<String>(underline: SizedBox(),
+                items: _currencies.map((String dropDownStringItem) {
+                  return DropdownMenuItem<String>(
+                    value: dropDownStringItem,
+                    child: Text(dropDownStringItem),
+                  );
+                }).toList(),
+                onChanged: (String newValueSelected) {
+                  setState(() {
+                    this._currentItemSelected = newValueSelected;
+                  });
+                },
+                value: _currentItemSelected,
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
-
   Widget _buildToTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'To',
-          style: kLabelStyle,
-        ),
-        SizedBox(height: 10.0),
-        DropdownButton<String>(
-          items: _currencies1.map((String dropDownStringItem) {
-            return DropdownMenuItem<String>(
-              value: dropDownStringItem,
-              child: Text(dropDownStringItem),
-            );
-          }).toList(),
-          onChanged: (String newValueSelected) {
-            setState(() {
-              this._currentItemSelected1 = newValueSelected;
-            });
-          },
-          value: _currentItemSelected1,
-        )
-      ],
+    return Container(
+      width: 260,
+
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(width: 10, height: 10.0),
+          Expanded(
+            child: Text(
+              'To',
+              style: kLabelStyle,
+            ),
+          ),
+          SizedBox(width: 40, height: 10.0),
+          Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25),color: Colors.white),
+            width: 170,
+            child: Center(
+              child: DropdownButton<String>(underline: SizedBox(),
+                items: _currencies.map((String dropDownStringItem) {
+                  return DropdownMenuItem<String>(
+                    value: dropDownStringItem,
+                    child: Text(dropDownStringItem),
+                  );
+                }).toList(),
+                onChanged: (String newValueSelected) {
+                  setState(() {
+                    this._currentItemSelected = newValueSelected;
+                  });
+                },
+                value: _currentItemSelected,
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -75,19 +105,19 @@ class _TrainFindPageState extends State<TrainFindPage> {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () {
-          Navigator.pop(context);
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => FindPage()));
+
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => FindPage()));
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
-        color: Colors.white,
+        color: Colors.blue,
         child: Text(
           'FIND',
           style: TextStyle(
-            color: Color(0xFF527DAA),
+            color: Colors.white,
             letterSpacing: 1.5,
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
@@ -116,7 +146,7 @@ class _TrainFindPageState extends State<TrainFindPage> {
                   Color(0xFF37474F),
                   Color(0xFF37474F),
                 ],
-                stops: [0.1, 0.4, 0.7, 0.9],
+                //stops: [0.1, 0.4, 0.7, 0.9],
               ),
             ),
           ),
@@ -149,6 +179,10 @@ class _TrainFindPageState extends State<TrainFindPage> {
                   SizedBox(
                     height: 40.0,
                   ),
+                  _buildDateTime(),
+                  SizedBox(
+                    height: 30.0,
+                  ),
                   _buildFindTF(),
                 ],
               ),
@@ -157,5 +191,104 @@ class _TrainFindPageState extends State<TrainFindPage> {
         ],
       ),
     );
+  }
+  Widget _buildDateTime(){
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Date',
+          style: kLabelStyle,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: InkWell(
+            child: Container(
+                height: 30,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0) ,color: Colors.white,
+                  border:
+                  Border.all(color: Colors.blueAccent),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Center(child: Text(fromDate))),
+                    Icon(Icons.arrow_drop_down)
+                  ],
+                )),
+            onTap: () {
+              _settingModalBottomSheet(context,
+                  selected: (value) {
+                    print("Selected value is $value");
+                    setState(() {
+                      fromDate = value.toString();
+                    });
+                  });
+            },
+          ),
+        ),
+      ],
+    );
+  }
+  _settingModalBottomSheet(context, {Function selected}) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return Container(
+            height: 200,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0, bottom: 10),
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: Padding(
+                              padding: EdgeInsets.only(left: 20),
+                              child: InkWell(
+                                child: Text('Cancel'),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                              ))),
+                      Expanded(child: SizedBox()),
+                      InkWell(
+                        onTap: () {
+                          final DateFormat formatter = DateFormat('dd-MM-yyyy');
+
+                          final String formatted = (selectedDate != null)
+                              ? formatter.format(selectedDate)
+                              : formatter.format(DateTime.now());
+
+                          selected(formatted);
+                          Navigator.pop(context);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 20.0),
+                          child: Text(
+                            'Done',
+                            textAlign: TextAlign.right,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: CupertinoDatePicker(
+                    mode: CupertinoDatePickerMode.date,
+                    initialDateTime: DateTime.now(),
+                    onDateTimeChanged: (value) {
+                      print(value);
+                      selectedDate = value;
+                    },
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
   }
 }
